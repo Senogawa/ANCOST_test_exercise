@@ -15,7 +15,7 @@ class DatabaseData:
 
     def get_pandas_dataframe(self) -> pd.DataFrame:
         """
-        table getting from db an
+        table getting from db and creating pd dataframe
         """
 
         #table_name = self.cur.execute("SELECT name FROM sqlite_master WHERE type='table';").fetchall() #table name get from database
