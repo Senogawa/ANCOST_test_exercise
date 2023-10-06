@@ -8,6 +8,11 @@ import pandas as pd
 
 class DatabaseData:
     def __init__(self, database: str, isolation_level: str = "DEFERRED", check_same_thread: bool = False):
+        """
+        database: database path - './testDB.db'
+        Connection openning with database and creating cursor
+        """
+
         self.database_name = database.split("/")[-1] #database name without path piece
         self.conn = sqlite3.connect(database = database, isolation_level = isolation_level, check_same_thread = check_same_thread)
         logger.info(f"Open connection with database {self.database_name}")
