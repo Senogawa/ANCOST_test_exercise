@@ -12,7 +12,8 @@ from database_methods.DB_and_PD_creating import DatabaseData
 
 def operators_shift_pies(dataframe: pd.DataFrame) -> plotly.graph_objs._figure.Figure:
     """
-    Creating and returning px pie figure
+    Creating and returning px pie figure.
+    Productivity of work displaying on various operators shift
     """
 
     operators = list(set(dataframe["operator"].values)) #getting unique values
@@ -23,11 +24,11 @@ def operators_shift_pies(dataframe: pd.DataFrame) -> plotly.graph_objs._figure.F
     annotations = []
 
     col = 1
-    x_start = 0.1
+    x_start = 0.1 #coefficient bias of diagram location
     for operator in operators:
         fig.add_trace(pgo.Pie(labels = dataframe["reason"], values = dataframe[dataframe["operator"] == operator]["duration_min"], name = operator), row = 1, col = col)
         annotations.append(dict(text = f"Shift {operator}", x = x_start, y = 1, font_size = 20))
-        x_start += 0.25
+        x_start += 0.25 
         col += 1
 
     fig.update_layout(
@@ -44,7 +45,13 @@ def all_dataframe_data(dataframe: pd.DataFrame) -> plotly.graph_objs._figure.Fig
     Create all database information diagram
     """
 
-    ...
+    fig = px.pie(dataframe, names = dataframe["reason"], values = dataframe["duration_min"], hover_data = "state")
+    fig.update_layout(
+        title_text = "All information about work duration(min)",
+        title_font_size = 20
+    )
+
+    return fig
 
 if __name__ == "__main__":
     data = DatabaseData("./testDB.db")
